@@ -1,0 +1,504 @@
+//#include "Threads.h"
+//#include "ThreadsController.h"
+//ELEVADOR1
+int motor1a=3;
+int motor1b=5;
+
+//FINS DE CURSO
+byte  UMSensor1Andar = 36;
+byte  UMSensor2Andar = 37;
+byte  UMSensor3Andar = 38;
+byte  UMSensor4Andar = 39;
+
+//BOTOES EXTERNOS
+byte  primeiroAndar = 20;
+byte  segundoAndarD = 21;
+byte  segundoAndarS = 22;
+byte  terceiroAndarD = 23;
+byte  terceiroAndarS = 24;
+byte  quartoAndar = 25;
+
+//BOTOES INTERNOS
+byte  UMInt1Andar = 29;
+byte  UMInt2Andar = 30;
+byte  UMInt3Andar = 31;
+byte  UMInt4Andar = 32;
+byte  Emergencia = 28;
+
+//COLOCANDO OS BOTÕES EM UM ARRAY PARA SIMPLIFICAR O SETUP
+int buttonsOutput[]={motor1a,motor1b};
+
+#define NUMOUTPUTS sizeof(buttonsOutput)
+
+
+//Variavel que guarda os andares a serem atendidos 
+//andaresParaAtender={0,0,0,0,0,1} = Atender 4 andar
+//andaresParaAtender={0,0,0,0,1,0} = Atender 3 andar cima
+//andaresParaAtender={0,0,0,1,0,0} = Atender 3 andar baixo
+//andaresParaAtender={0,0,1,0,0,0} = Atender 2 andar cima
+//andaresParaAtender={0,1,0,0,0,0} = Atender 2 andar baixo
+//andaresParaAtender={1,0,0,0,0,0} = Atender 1 andar
+int andaresParaAtender[6]={0,0,0,0,0,0};
+
+//Variavel que guarda os andares para entregar
+//andaresParaEntregar={0,0,1} = Entregar 3 andar
+//andaresParaEntregar={0,1,0} = Entregar 2 andar
+//andaresParaEntregar={1,0,0} = Entregar 1 andar
+int andaresParaEntregar1[4]={0,0,0,0};
+
+//Guarda o andar atual do elevador
+int andarAtualElevador1 =1;
+
+//Situação do elevador
+int parado1=1;
+int parado2=1;
+/*
+int elevador1ocupado = 0;
+int elevador2ocupado = 0;
+*/
+
+//ESTADO DOS FINS DE CURSO
+int andar1[4]={0,0,0,0};
+
+int x = 0;
+int y = 0;
+
+//Tempo de porta aberta do elevador
+#define OpenTime 2000
+long timeElevator1 = 0;
+long timeElevator2 = 0;
+
+//DEBOUNCE DE TODOS OS PINOS DE INPUT
+#define DEBOUNCE 10  // button debouncer, how many ms to debounce, 5+ ms is usually plenty
+
+byte buttons[] = {UMSensor1Andar, UMSensor2Andar, UMSensor3Andar, UMSensor4Andar,
+                  primeiroAndar, segundoAndarD, segundoAndarS, terceiroAndarD, terceiroAndarS, quartoAndar,
+                  UMInt1Andar, UMInt2Andar, UMInt3Andar, UMInt4Andar, Emergencia};
+//determine how big the array up above is, by checking the size
+#define NUMBUTTONS sizeof(buttons)
+ 
+//track if a button is just pressed, just released, or 'currently pressed' 
+byte pressed[NUMBUTTONS], justpressed[NUMBUTTONS], justreleased[NUMBUTTONS];
+byte previous_keystate[NUMBUTTONS], current_keystate[NUMBUTTONS];
+ 
+void setup(){
+  byte i;
+  Serial.begin(9600); //set up serial port
+  delay(500);
+  Serial.write(254);  // start LCD control mode before sending control instruction to it
+  Serial.write(1);  delay(500);  // Clear LCD, delay is a must.
+  Serial.print(NUMBUTTONS, DEC);
+  Serial.println(" buttons");
+  Serial.write(254);  // start LCD control mode before sending control instruction to it
+  Serial.write(1);  delay(500);  // Clear LCD, delay is a must.
+  Serial.println("Elevadores");
+  Serial.write(254);  // start LCD control mode before sending control instruction to it
+  Serial.write(192);  delay(500);  // Clear LCD, delay is a must.
+  Serial.println("Inteligentes S.A.");
+  // Make input &amp; enable pull-up resistors on switch pins
+  for (i=0; i< NUMBUTTONS; i++) {
+    pinMode(buttons[i], INPUT);
+    digitalWrite(buttons[i], HIGH);
+  }
+  for (i=0; i< NUMOUTPUTS; i++) {
+    pinMode(buttonsOutput[i], OUTPUT);
+  }
+  if(!digitalRead(UMSensor1Andar)){
+    displayElevador1(1);
+    para1(1);
+  }
+  else if(!digitalRead(UMSensor2Andar)){
+    displayElevador1(2);
+    para1(21);
+    para1(22);
+  }
+  else if(!digitalRead(UMSensor3Andar)){
+    displayElevador1(3);
+    para1(3);
+  }
+}
+ 
+void loop() {
+  byte thisSwitch=thisSwitch_justPressed();
+  switch(thisSwitch){  
+    //ELEVADOR1 CHEGOU ANDAR 1
+    case 0: 
+      displayElevador1(1);
+      //andarAtualElevador1=1;
+      //PRECISA ENTREGAR ALGUEM NESSE ANDAR OU ALGUEM CHAMOU NESSE ANDAR?
+      //if(andaresParaEntregar1[0]==1||andaresParaAtender[0]==1){
+        para1(1);
+      //}
+    break;
+    //ELEVADOR1 CHEGOU ANDAR 2
+    case 1: 
+      displayElevador1(2);
+      //andarAtualElevador1=2;
+      //PRECISA ENTREGAR ALGUEM NESSE ANDAR?
+      if(andaresParaEntregar1[1]==1){
+        para1(21);
+      }
+      //PRECISA PEGAR ALGUEM NESSE ANDAR e A PESSOA VAI SUBIR E NÃO TEM NINGUEM PEDINDO PRA DESCER
+      else if( (andaresParaAtender[2]==1)){
+        para1(22);
+      }
+      //PRECISA PEGAR ALGUEM NESSE ANDAR e A PESSOA VAI DESCER E NÃO TEM NINGUEM PEDINDO PRA SUBIR
+      else if( (andaresParaAtender[1]==1) && (andaresParaEntregar1[2]==0)){
+        para1(21);
+      }
+    break;
+    //ELEVADOR1 CHEGOU ANDAR 3
+    case 2: 
+      displayElevador1(3); 
+      //andarAtualElevador1=3;
+      //PRECISA ENTREGAR ALGUEM NESSE ANDAR OU ALGUEM CHAMOU NESSE ANDAR?
+      //if(andaresParaEntregar1[2]==1||andaresParaAtender[3]==1){
+        para1(3);
+      //}
+    break;
+
+    //CHAMOU EXTERNO ANDAR1
+    case 6: 
+      andaresParaAtender[0]=1;
+    break; 
+    //CHAMOU EXTERNO ANDAR2 DESCE
+    case 7: 
+      andaresParaAtender[1]=1;
+    break; 
+    //CHAMOU EXTERNO ANDAR2 SOBE
+    case 8: 
+      andaresParaAtender[2]=1;
+    break; 
+    //CHAMOU EXTERNO ANDAR3
+    case 9: 
+      andaresParaAtender[3]=1;
+    break;       
+
+    //ELEV1 MANDOU INTERNO ANDAR1
+    case 10: 
+      andaresParaEntregar1[0]=1;
+    break;       
+    //ELEV1 MANDOU INTERNO ANDAR2
+    case 11: 
+      andaresParaEntregar1[1]=1;
+    break;       
+    //ELEV1 MANDOU INTERNO ANDAR3
+    case 12: 
+      andaresParaEntregar1[2]=1;
+    break;
+  }
+  /*
+  if(andaresParaEntregar1[0]||andaresParaEntregar1[1]||andaresParaEntregar1[2])
+    elevador1ocupado=1;
+  }else{
+    elevador1ocupado=0;
+  }
+  if(andaresParaEntregar2[0]||andaresParaEntregar2[1]||andaresParaEntregar2[2])
+    elevador2ocupado=1;
+  }else{
+    elevador2ocupado=0;
+  }
+  */
+  //ELEVADOR1
+  if(millis()-timeElevator1>OpenTime){
+    //Esta no primeiro
+    if(andarAtualElevador1==1){
+      //Precisa abrir a porta
+      if(andaresParaEntregar1[0]==1||andaresParaAtender[0]==1){
+        if(pressed[0])
+          para1(1);
+      }
+      //precisa entregar no segundo ou terceiro
+      else if(andaresParaEntregar1[1]==1||andaresParaEntregar1[2]==1){
+        sobe1();
+      }
+      //Alguem chamou no segundo pra descer
+      else if((andaresParaAtender[1]==1)){
+        sobe1();
+      }
+      //Alguem chamou no segundo pra subir
+      else if((andaresParaAtender[2]==1)){
+        sobe1();
+      }
+      //Alguem chamou no terceiro
+      else if((andaresParaAtender[3]==1)){
+        sobe1();
+      }
+    }
+    //Esta no segundo
+    else if(andarAtualElevador1==2){
+      if((andaresParaEntregar1[1]==1||andaresParaAtender[1]==1)){
+        if(pressed[1])
+          para1(21);
+      }
+      else if(andaresParaAtender[2]==1){
+        if(pressed[1])
+          para1(22);
+      }
+      //precisa entregar no primeiro
+      else if(andaresParaEntregar1[0]==1){
+        desce1();
+      }
+      //precisa entregar no terceiro
+      else if(andaresParaEntregar1[2]==1){
+        sobe1();
+      }
+      //Alguem chamou no primeiro
+      else if((andaresParaAtender[0]==1)){
+        desce1();
+      }
+      //Alguem chamou no terceiro
+      else if((andaresParaAtender[3]==1)){
+        sobe1();
+      }
+    }
+    //Esta no terceiro
+    else if(andarAtualElevador1==3){
+      if(andaresParaEntregar1[2]==1||andaresParaAtender[3]==1){
+        if(pressed[2])
+          para1(3);
+      }
+       //precisa entregar no segundo ou terceiro
+      else if((andaresParaEntregar1[0]==1)||(andaresParaEntregar1[1]==1)){
+        desce1();
+      }
+      //Alguem chamou no segundo pra descer
+      else if((andaresParaAtender[1]==1)){
+        desce1();
+      }
+      //Alguem chamou no segundo pra subir
+      else if((andaresParaAtender[2]==1)){
+        desce1();
+      }
+      //Alguem chamou no primeiro
+      else if((andaresParaAtender[0]==1)){
+        desce1();
+      }
+    }
+  }
+
+  //ELEVADOR1
+  //Todos os andares estão com problema no fim de curso
+  if(pressed[0]&&pressed[1]&&pressed[2]){
+    if(x==0){
+      erro1(1);
+      x++;
+    }else if(x==1){
+      erro1(2);
+      x++;
+    }else{
+      erro1(3);
+      x=0;
+    }
+  }
+  //Primeiro e Segundo estão com problema
+  else if(pressed[0]&&pressed[1]){
+    if(x==0){
+      erro1(1);
+      x++;
+    }else{
+      erro1(2);
+      x=0;
+    }
+  }
+  //Segundo e Terceiro estão com problema
+  else if(pressed[1]&&pressed[2]){
+    if(x==0){
+      erro1(2);
+      x++;
+    }else{
+      erro1(3);
+      x=0;
+    }
+  }
+  //Primeiro e Terceiro estão com problema
+  else if(pressed[0]&&pressed[2]){ 
+    if(x==0){
+      erro1(1);
+      x++;
+    }else{
+      erro1(3);
+      x=0;
+    }
+  }
+  //Problema resolvivo
+  else if(pressed[0]&&justreleased[1]||
+          pressed[1]&&justreleased[0]||
+          pressed[0]&&justreleased[2]||
+          pressed[2]&&justreleased[0]||
+          pressed[1]&&justreleased[2]||
+          pressed[2]&&justreleased[1]){
+    zerarComandos(1);
+    if(pressed[0]){
+      para1(1);
+    }else if(pressed[1]){
+      para1(21);
+      para1(22);
+    }else if(pressed[2]){
+      para1(3);
+    }
+  }
+  //Nenhum fim de curso acionado
+  if(!pressed[0]&&!pressed[1]&&!pressed[2]){
+    if(parado1){
+      switch (andarAtualElevador1) {
+          case 1:
+            sobe1();
+            break;
+          case 2:
+            sobe1();
+            break;
+          case 3:
+            desce1();
+            break;
+          default:
+            break;
+      }
+    }
+  }  
+}
+ 
+void check_switches(){
+  static byte previousstate[NUMBUTTONS];
+  static byte currentstate[NUMBUTTONS];
+  static long lasttime;
+  byte index;
+  if (millis() < lasttime) {
+    // we wrapped around, lets just try again
+    lasttime = millis();
+  }
+  if ((lasttime + DEBOUNCE) > millis()) {
+    // not enough time has passed to debounce
+    return; 
+  }
+  // ok we have waited DEBOUNCE milliseconds, lets reset the timer
+  lasttime = millis();
+  for (index = 0; index < NUMBUTTONS; index++) {
+    justpressed[index] = 0;       //when we start, we clear out the "just" indicators
+    justreleased[index] = 0;
+    currentstate[index] = digitalRead(buttons[index]);   //read the button
+    if (currentstate[index] == previousstate[index]) {
+      if ((pressed[index] == LOW) && (currentstate[index] == LOW)) {
+        // just pressed
+        justpressed[index] = 1;
+      }
+      else if ((pressed[index] == HIGH) && (currentstate[index] == HIGH)) {
+        justreleased[index] = 1; // just released
+      }
+      pressed[index] = !currentstate[index];  //remember, digital HIGH means NOT pressed
+    }
+    previousstate[index] = currentstate[index]; //keep a running tally of the buttons
+  }
+}
+ 
+byte thisSwitch_justPressed() {
+  byte thisSwitch = 255;
+  check_switches();  //check the switches &amp; get the current state
+  for (byte i = 0; i < NUMBUTTONS; i++) {
+    current_keystate[i]=justpressed[i];
+    if (current_keystate[i] != previous_keystate[i]) {
+      if (current_keystate[i]) 
+        thisSwitch=i;
+    }
+    previous_keystate[i]=current_keystate[i];
+  }  
+  return thisSwitch;
+}
+
+void erro1(int andar){
+  switch (andar) {
+      case 1:
+        displayElevador1(1);
+        break;
+      case 2:
+        displayElevador1(2);
+        break;
+      case 3:
+        displayElevador1(3);
+        break;
+      default:
+         break;
+  }
+}
+void sobe1(){
+  parado1=0;
+  //ELEVADOR1
+  digitalWrite(motor1a,HIGH);
+  digitalWrite(motor1b, LOW);
+}
+
+void desce1(){
+  parado1=0;
+  //ELEVADOR1
+  digitalWrite(motor1a,LOW);
+  digitalWrite(motor1b,HIGH);
+}
+void zerarComandos(int elevador){
+  if(elevador==1){
+    andaresParaEntregar1[0]=0;
+    andaresParaEntregar1[1]=0;
+    andaresParaEntregar1[2]=0;
+    andaresParaAtender[0]=0;
+    andaresParaAtender[1]=0;
+    andaresParaAtender[2]=0;
+    andaresParaAtender[3]=0;
+  }
+}
+void para1(int andar){
+  //ELEVADOR1
+  parado1=1;
+  timeElevator1 = millis();
+  digitalWrite(motor1a,LOW);
+  digitalWrite(motor1b,LOW);
+  if(andar==1){
+    if(andaresParaEntregar1[0]==1||andaresParaAtender[0]==1)
+    displayElevador1(1); 
+    andarAtualElevador1=1;
+
+    andaresParaEntregar1[0]=0;
+
+    andaresParaAtender[0]=0;
+  }else if(andar==21){
+     if(andaresParaEntregar1[1]==1||andaresParaAtender[1]==1||andaresParaAtender[2]==1)
+
+    displayElevador1(2); 
+    andarAtualElevador1=2;
+
+    andaresParaEntregar1[1]=0;
+
+    andaresParaAtender[1]=0;
+   
+  }else if(andar==22){
+     if(andaresParaEntregar1[1]==1||andaresParaAtender[1]==1||andaresParaAtender[2]==1)
+
+    displayElevador1(2); 
+    andarAtualElevador1=2;
+
+    andaresParaEntregar1[1]=0;
+
+    andaresParaAtender[2]=0;
+   
+  }else if(andar==3){
+    if(andaresParaEntregar1[2]==1||andaresParaAtender[3]==1)
+    displayElevador1(3); 
+    andarAtualElevador1=3;
+    andaresParaEntregar1[2]=0;
+    andaresParaAtender[3]=0;
+  }
+}
+
+void displayElevador1(int andar){
+  switch (andar) {
+      case 1:
+       
+        break;
+      case 2:
+       
+        break;
+      case 3:
+        
+        break;
+      default:
+        break;
+  }
+}

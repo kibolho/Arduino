@@ -1,0 +1,891 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"fo",
+				"forward"
+			],
+			[
+				"co",
+				"connectionBadMove"
+			],
+			[
+				"Car",
+				"Card0"
+			],
+			[
+				"Card",
+				"Card1"
+			],
+			[
+				"card",
+				"cardIndex"
+			],
+			[
+				"car",
+				"cardPos"
+			],
+			[
+				"sho",
+				"ShowCards"
+			],
+			[
+				"serial",
+				"serialHead"
+			],
+			[
+				"com",
+				"compose2"
+			],
+			[
+				"landm",
+				"landmark"
+			],
+			[
+				"lan",
+				"landmark_pub"
+			],
+			[
+				"landma",
+				"landmark_pub"
+			],
+			[
+				"Lan",
+				"LandmarkMonitor"
+			],
+			[
+				"La",
+				"LandmarkDistance"
+			],
+			[
+				"L",
+				"LandmarkDistance"
+			],
+			[
+				"land",
+				"landmark"
+			],
+			[
+				"re",
+				"result"
+			],
+			[
+				"Od",
+				"OdomCallback"
+			],
+			[
+				"Ini",
+				"InitLandmarks"
+			],
+			[
+				"message",
+				"message_runtime"
+			],
+			[
+				"it",
+				"iterator"
+			],
+			[
+				"end",
+				"endl"
+			],
+			[
+				"for",
+				"forward_list"
+			],
+			[
+				"be",
+				"begin"
+			],
+			[
+				"o",
+				"omnivore"
+			],
+			[
+				"je",
+				"jeMange"
+			],
+			[
+				"to",
+				"toString"
+			],
+			[
+				"en",
+				"enseignant"
+			],
+			[
+				"spe",
+				"specialite"
+			],
+			[
+				"sp",
+				"specialite"
+			],
+			[
+				"p",
+				"pt"
+			],
+			[
+				"T",
+				"Triplets"
+			],
+			[
+				"get",
+				"getValue"
+			],
+			[
+				"val",
+				"value"
+			],
+			[
+				"capi",
+				"capitale"
+			],
+			[
+				"pa",
+				"paysOfVille"
+			],
+			[
+				"N",
+				"nom"
+			],
+			[
+				"str",
+				"string"
+			],
+			[
+				"t",
+				"throw"
+			],
+			[
+				"Ret",
+				"rectangle"
+			],
+			[
+				"reta",
+				"rectangle"
+			],
+			[
+				"par",
+				"partReal"
+			],
+			[
+				"num",
+				"numberOriginal"
+			],
+			[
+				"n",
+				"number"
+			],
+			[
+				"file",
+				"fileOUT"
+			],
+			[
+				"txt",
+				"txt"
+			],
+			[
+				"pr",
+				"preelle"
+			],
+			[
+				"c2",
+				"c2c3"
+			],
+			[
+				"ex",
+				"ecrireComplexe"
+			],
+			[
+				"r",
+				"rho"
+			],
+			[
+				"c",
+				"complexe"
+			],
+			[
+				"aff",
+				"afficherMatrice"
+			],
+			[
+				"prin",
+				"printArray"
+			],
+			[
+				"do",
+				"double"
+			],
+			[
+				"vect",
+				"vecteurs"
+			],
+			[
+				"cha",
+				"character"
+			],
+			[
+				"a",
+				"a"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "ROVER-Motors/_5_MotionWithGyro/_5_MotionWithGyro.ino",
+			"settings":
+			{
+				"buffer_size": 16065,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ROVER-Motors/RoverAngleMove/RoverAngleMove.ino",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ROVER-Head/_11b_Servo_Serial_Follow_Simplier_Laser/_11b_Servo_Serial_Follow_Simplier_Laser.ino",
+			"settings":
+			{
+				"buffer_size": 17064,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Projet/Projet final/my_sql.hpp",
+			"settings":
+			{
+				"buffer_size": 8957,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "# SOURCE\n# https://www.pyimagesearch.com/2017/04/17/real-time-facial-landmark-detection-opencv-python-dlib/\n# https://www.pyimagesearch.com/2017/04/10/detect-eyes-nose-lips-jaw-dlib-opencv-python/\n# USAGE\n# cd ./Desktop/Parallels\\ Shared\\ Folders/Home/Dropbox/Developer/ROS/Python-faceTracking\n# cd ./home/pi/Dropbox-Uploader/ROS/Python-faceTracking\n# python 5-SERIAL_MOTORS_ROVER_video_facial_landmarks.py --shape-predictor shape_predictor_68_face_landmarks.dat\n# python 5-SERIAL_MOTORS_ROVER_video_facial_landmarks.py --shape-predictor shape_predictor_68_face_landmarks.dat --picamera 1\n\n# import the necessary packages\n\nfrom math import *\n\nfrom imutils.video import VideoStream\nfrom collections import OrderedDict\nfrom imutils import face_utils\nimport datetime\nimport argparse\nimport imutils\nimport time\nimport dlib\nimport cv2\nimport serial\nserialHead = serial.Serial('/dev/ttyUSB0', 57600) # Establish the connection on a specific port\n#serialMotors = serial.Serial('/dev/ttyUSB1', 57600) # Establish the connection on a specific port\n\ndef translate(value, leftMin, leftMax, rightMin, rightMax):\n    # Figure out how 'wide' each range is\n    leftSpan = leftMax - leftMin\n    rightSpan = rightMax - rightMin\n\n    # Convert the left range into a 0-1 range (float)\n    valueScaled = float(value - leftMin) / float(leftSpan)\n\n    # Convert the 0-1 range into a value in the right range.\n    return rightMin + (valueScaled * rightSpan)\n\n# define a dictionary that maps the indexes of the facial\n# landmarks to specific face regions\nFACIAL_LANDMARKS_IDXS = OrderedDict([\n	(\"mouth\", (48, 68)),\n	(\"right_eyebrow\", (17, 22)),\n	(\"left_eyebrow\", (22, 27)),\n	(\"right_eye\", (36, 42)),\n	(\"left_eye\", (42, 48)),\n	(\"nose\", (27, 35)),\n	(\"jaw\", (0, 17))\n])\n\ndef visualize_facial_landmarks(image, shape, colors=None, alpha=0.75):\n	# create two copies of the input image -- one for the\n	# overlay and one for the final output image\n \n	# if the colors list is None, initialize it with a unique\n	# color for each facial landmark region\n	if colors is None:\n		colors = [(19, 199, 109), (79, 76, 240), (230, 159, 23),\n			(168, 100, 168), (158, 163, 32),\n			(163, 38, 32), (180, 42, 220)]\n		# loop over the facial landmark regions individually\n	for (i, name) in enumerate(FACIAL_LANDMARKS_IDXS.keys()):\n		# grab the (x, y)-coordinates associated with the\n		# face landmark\n		(j, k) = FACIAL_LANDMARKS_IDXS[name]\n		pts = shape[j:k]\n \n		# check if are supposed to draw the jawline\n		if name == \"jaw\":\n			# since the jawline is a non-enclosed facial region,\n			# just draw lines between the (x, y)-coordinates\n			for l in range(1, len(pts)):\n				ptA = tuple(pts[l - 1])\n				ptB = tuple(pts[l])\n				cv2.line(frame, ptA, ptB, colors[i], 2)\n \n		# otherwise, compute the convex hull of the facial\n		# landmark coordinates points and display it\n		else:\n			hull = cv2.convexHull(pts)\n			cv2.drawContours(frame, [hull], -1, colors[i], -1)\n \n# construct the argument parse and parse the arguments\nap = argparse.ArgumentParser()\nap.add_argument(\"-p\", \"--shape-predictor\", required=True,\n	help=\"path to facial landmark predictor\")\nap.add_argument(\"-r\", \"--picamera\", type=int, default=-1,\n	help=\"whether or not the Raspberry Pi camera should be used\")\nargs = vars(ap.parse_args())\n \n# initialize dlib's face detector (HOG-based) and then create\n# the facial landmark predictor\nprint(\"[INFO] loading facial landmark predictor...\")\ndetector = dlib.get_frontal_face_detector()\npredictor = dlib.shape_predictor(args[\"shape_predictor\"])\n\n# initialize the video stream and allow the cammera sensor to warmup\nprint(\"[INFO] camera sensor warming up...\")\n#vs = VideoStream(usePiCamera=args[\"picamera\"] > 0).start()\nvs = VideoStream(1).start()\ntime.sleep(2.0)\n\n# loop over the frames from the video stream\nwhile True:\n	go = raw_input(\"cheeze : \")\n	if go!=\"\":\n		break\n	else:\n		# grab the frame from the threaded video stream, resize it to\n		# have a maximum width of 400 pixels, and convert it to\n		# grayscale\n		frame = vs.read()\n		# grab the dimensions of the image and calculate the center\n		# of the image\n		(h, w) = frame.shape[:2]\n		center = (w / 2, h / 2)\n	 \n		# rotate the image by 180 degrees\n		M = cv2.getRotationMatrix2D(center, 90, 1.0)\n		frame = cv2.warpAffine(frame, M, (w, h))\n		frame = imutils.resize(frame, width=400)\n		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)\n\n		# detect faces in the grayscale frame\n		rects = detector(gray, 0)\n\n		# loop over the face detections\n		angleToCorrect=0;\n		for rect in rects:\n			# determine the facial landmarks for the face region, then\n			# convert the facial landmark (x, y)-coordinates to a NumPy\n			# array\n			shape = predictor(gray, rect)\n			shape = face_utils.shape_to_np(shape)\n\n			# loop over the (x, y)-coordinates for the facial landmarks\n			# and draw them on the image\n			for (x, y) in shape:\n				cv2.circle(frame, (x, y), 1, (0, 0, 255), -1)\n			(j, k) = FACIAL_LANDMARKS_IDXS[\"nose\"]\n		  	NosePt = shape[33]\n		  	print NosePt\n		  	TupleNosePt=(0,0)\n		  	TupleNosePt=tuple(NosePt)\n		  	cv2.line(frame,(200,200),TupleNosePt,(255,0,0),5)\n		  	#visualize_facial_landmarks(frame,shape)\n		  	xNose=TupleNosePt[0];\n		  	yNose=TupleNosePt[1];\n		  	#yaw=int(round(translate(xNose, 0, 400, 140, 30))) #93\n		  	yaw=int(round(translate(xNose, 0, 400, 120, 60))) #93\n		  	#pitch=int(round(translate(yNose, 0, 400, 20, 120))) #70\n		  	pitch=int(round(translate(yNose, 0, 400, 30, 80))) #55\n		  	sendString = \"1\"+chr(pitch)+\"2\"+chr(yaw)+\"3\";\n		  	print(sendString)\n		  	sendString = \"Pitch \"+str(pitch)+\" Yaw \"+str(yaw);\n		  	print(sendString)\n		  	pitchChannel = 0\n			yawChannel = 1\n			LaserChannel = 2\n			MotorAngleChannel = 3\n			MotorDistanceChannel = 4\n			#CHARS GOES 00->126 \n			yaw=yaw-18\n		  	pitch=pitch-18\n		  	serialHead.write(chr(pitchChannel))\n		  	serialHead.write(chr(pitch))\n		  	serialHead.write(chr(yawChannel))\n		  	serialHead.write(chr(yaw))\n		  	time.sleep(0.1)\n		  	serialHead.write(chr(LaserChannel))\n		  	distance = serialHead.readline()\n	  		print(distance)\n	  		time.sleep(0.1)\n	  		serialHead.write(chr(MotorAngleChannel))\n		  	serialHead.write(chr(yaw))\n		  	targetOK = serialHead.readline()\n		  	serialHead.write(chr(MotorDistanceChannel))\n		  	serialHead.write(chr(distance))\n		# show the frame\n		frame=cv2.flip(frame,1)\n		cv2.imshow(\"Vertical Flip\", frame)\n		key = cv2.waitKey(1) & 0xFF\nserialHead.close() \n#serialMotors.close()\n# do a bit of cleanup\ncv2.destroyAllWindows()\nvs.stop()",
+			"file": "/Users/abilioazevedo/Dropbox/Developer/ROS/Python-faceTracking/5-SERIAL_MOTORS_ROVER_video_facial_landmarks.py",
+			"file_size": 6382,
+			"file_write_time": 1526545950000000,
+			"settings":
+			{
+				"buffer_size": 6420,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/abilioazevedo/Dropbox/Developer/ROS/Python-faceTracking/5b-SERIAL_MOTORS.py",
+			"settings":
+			{
+				"buffer_size": 1085,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/User/c++14.sublime-build",
+	"command_palette":
+	{
+		"height": 67.0,
+		"selected_items":
+		[
+			[
+				"c++",
+				"Set Syntax: C++"
+			],
+			[
+				"c+",
+				"Set Syntax: C++"
+			],
+			[
+				"C++",
+				"Set Syntax: C++"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"te",
+				"Set Syntax: Textile"
+			],
+			[
+				"set",
+				"Set Syntax: TeX"
+			],
+			[
+				"py",
+				"Set Syntax: Python"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"ph",
+				"Set Syntax: Python"
+			],
+			[
+				"c",
+				"Set Syntax: Objective-C"
+			],
+			[
+				"pack",
+				"Preferences: Browse Packages"
+			],
+			[
+				"set s",
+				"Set Syntax: MATLAB"
+			],
+			[
+				"set syn",
+				"Set Syntax: CSS"
+			]
+		],
+		"width": 395.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/abilioazevedo/Dropbox/Developer/ROS/Python-faceTracking/5b-SERIAL_MOTORS.py",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/7-Rover/ROVER-Head/_10b_Rover_Serial_Follow/_10b_Rover_Serial_Follow.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/7-Rover/ROVER-Head/_11b_Servo_Serial_Follow_Simplier_Laser/_11b_Servo_Serial_Follow_Simplier_Laser.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/7-Rover/ROVER-Motors/MainSoftware/MainSoftware.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/7-Rover/ROVER-Motors/Motion_basic/Motion_basic.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/7-Rover/ROVER-Motors/Mouvement_des_roues/Mouvement_des_roues.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/7-Rover/ROVER-Head/_2b_Gyro/_2b_Gyro.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/6-WheelChair/Cadeira6-Sequencial/Cadeira6-Sequencial.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/7-Rover/ROVER-Motors/_5_MotionWithGyro/_1_MotionWithGyro.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/7-Rover/ROVER-Motors/_1_MotionWithGyro/_1_MotionWithGyro.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/6-WheelChair/Gyro/Gyro.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/7-Rover/ROVER-Motors/Mouvement_des_servos/Mouvement_des_servos.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/6-WheelChair/Cadeira5-Sequencial/Cadeira5-Sequencial.ino",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/DS/DS3_Meu/ExampleComposite/main.o",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/DS/DS3_Meu/ExampleComposite/main",
+		"/Users/abilioazevedo/Google Drive/Projet Programation/Ensemble3/Ensemble3.sublime-project",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Projet - Rover/Rover.sublime-project",
+		"/Users/abilioazevedo/Downloads/PERFECT GREENS COLLECTION.rar",
+		"/Users/abilioazevedo/Google Drive/Projet Programation/Ensemble/control.hpp",
+		"/Users/abilioazevedo/Google Drive/Projet Programation/Ensemble/test.cpp",
+		"/home/user/Documents/ELEC4/C++/S8/Projet/Ensemble/Makefile",
+		"/home/user/Documents/ELEC4/C++/S8/Projet/Ensemble/observable.hpp",
+		"/home/user/Documents/ELEC4/C++/S8/Projet/Ensemble/main.cpp",
+		"/home/user/Documents/ELEC4/C++/S8/Projet/Ensemble/graphView.hpp",
+		"/home/user/Documents/ELEC4/C++/S8/Projet/Ensemble/control.hpp",
+		"/home/user/Documents/ELEC4/C++/S8/Projet/Ensemble/cards.hpp",
+		"/home/user/Documents/ELEC4/C++/S8/Projet/Ensemble/card.hpp",
+		"/home/user/Documents/ELEC4/C++/S8/Projet/Ensemble/abstractObservator.hpp",
+		"/home/user/Documents/ELEC4/C++/S8/Projet/Ensemble/mainCards.cpp",
+		"/home/user/Documents/ELEC4/C++/S8/Projet/Ensemble/menu.hpp",
+		"/home/user/Documents/ELEC4/C++/S8/Projet/Ensemble/vue.hpp",
+		"/Users/abilioazevedo/Google Drive/Projet Programation/Maeva/vue.hpp",
+		"/Users/abilioazevedo/Google Drive/Projet Programation/Abilio/vue.hpp",
+		"/Users/abilioazevedo/Documents/ROS/Python-faceTracking/3-SERIAL_video_facial_landmarks.py",
+		"/Users/abilioazevedo/Documents/ROS/Python-faceTracking/2-SERIALContinuos_video_facial.py",
+		"/Users/abilioazevedo/Documents/ROS/Python-faceTracking/4-SERIAL_MOTORS_video_facial_landmarks.py",
+		"/Users/abilioazevedo/Documents/ROS/Python-faceTracking/SERIAL_video_facial_landmarks.py",
+		"/Users/abilioazevedo/Documents/ROS/Python-faceTracking/1-ROS_video_facial_landmarks.py",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/7-Rover/ROVER-Head/_6_ROS_Servo_stabilisation/_6_ROS_Servo_stabilisation.ino",
+		"/Users/abilioazevedo/Google Drive/Rover/Codes Arduino/MainSoftware/MainSoftware.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/ROVER/ROVER-Head/_5_ROS_Servo_stabilisation_Laser/_5_ROS_Servo_stabilisation_Laser.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/ROVER/ROVER-Head/_10_Rover_Serial_Follow/_10_Rover_Serial_Follow.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/ROVER/ROVER-Head/_9_Servo_Serial_Follow_Simplier_Laser/_9_Servo_Serial_Follow_Simplier_Laser.ino",
+		"/Users/abilioazevedo/Documents/ROS/Python-Object-detection-deep-learning/ros_arduino_tracking3.py",
+		"/Users/abilioazevedo/Documents/ROS/Python-faceTracking/video_facial_landmarksSerialContinuos.py",
+		"/Users/abilioazevedo/Documents/ROS/Python-faceTracking/SERIALContinuos_video_facial.py",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/ROVER/ROVER-Head/_1_Arduino_nano_distance_laser/_1_Arduino_nano_distance_laser.ino",
+		"/Users/abilioazevedo/Documents/ROS/Python-faceTracking/video_facial_landmarksSerial.py",
+		"/Users/abilioazevedo/Documents/ROS/Python-faceTracking/ROS_video_facial_landmarks.py",
+		"/Users/abilioazevedo/Documents/ROS/Python-faceTracking/video_facial_landmarks.py",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/ROVER/ROVER-Head/_6_ROS_Servo_stabilisation_Laser/_6_ROS_Servo_stabilisation_Laser.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/ROVER/ROVER-Head/_8_ROS_Servo_Serial_Follow Simplier/_8_ROS_Servo_Serial_Follow Simplier.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/ROVER/ROVER-Head/_8_ROS_Servo_Serial_FollowSimplier/_8_ROS_Servo_Serial_FollowSimplier.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/ROVER/ROVER-Head/_7_ROS_Servo_Serial_Follow/_7_ROS_Servo_Serial_Follow.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/ROVER-Head/_7_ROS_Servo_Serial_Follow/_7_ROS_Servo_Serial_Follow.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/ROVER-Head/_6_ROS_Servo_stabilisation_Laser copy/_6_ROS_Servo_stabilisation_Laser.ino",
+		"/Users/abilioazevedo/Documents/ROS/Python-Object-detection-deep-learning/ros_arduino_tracking.py",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/ROVER-Head/_5_ROS_Servo_stabilisation_Laser/_5_ROS_Servo_stabilisation_Laser.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/ROVER-Head/5_ROS_Servo_stabilisation_Laser/5_ROS_Servo_stabilisation_Laser.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/ROVER-Head/5-ROS_Servo_stabilisation_Laser/5-ROS_Servo_stabilisation_Laser.ino",
+		"/Users/abilioazevedo/Documents/ROS/Python-Object-detection-deep-learning/ros_arduino_tracking2.py",
+		"/Users/abilioazevedo/Downloads/real-time-facial-landmarks/video_facial_landmarks.py",
+		"/Users/abilioazevedo/Downloads/FWBCTKRIJD79BCA.ino",
+		"/Users/abilioazevedo/Documents/ROS/object-detection-deep-learning/ros_arduino_tracking2.py",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/Iniciacao/Cadeira6-Sequencial/Cadeira6-Sequencial.ino",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD12_Meu/untitled.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD12_Meu/2-vue.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD12_Meu/2-app.cpp",
+		"/Users/abilioazevedo/Google Drive/Projet Programation/Abilio/app",
+		"/Users/abilioazevedo/Google Drive/Projet Programation/app.cpp",
+		"/Users/abilioazevedo/Google Drive/Projet Programation/vue.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD12_Meu/3-controleur.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD12_Meu/3-vueGraph.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD12_Meu/3-observateur.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD12_Meu/3-observable.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD12_Meu/3-modele.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD12_Meu/3-main.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD12_Meu/1-GraphGTKMM.cc",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD12_Meu/vue.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD12_Meu/app.cpp",
+		"/Users/abilioazevedo/Documents/ROS/commands.txt",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/ROVER-Head/ROS_Servo_stabilisation_Laser/ROS_Servo_stabilisation_Laser.ino",
+		"/Users/abilioazevedo/Documents/ROS/object-detection-deep-learning/deep_learning_object_detection.py",
+		"/Users/abilioazevedo/Documents/ROS/object-detection-deep-learning/ros_arduino_tracking.py",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD11_Meu/8-.cpp",
+		"/Users/abilioazevedo/Library/Application Support/Sublime Text 2/Packages/User/c++11.sublime-build",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD11_Meu/3-find_if.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD11_Meu/2-Fonctionnel.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD11_Meu/1-FonctionAnonymes.cpp",
+		"/Users/abilioazevedo/Google Drive/Rover/Carnet de bord/Abilio/Implémentation/Dectection+HeadControl/ros_arduino_tracking.py",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/ROVER-Head/ROS_Servo_stabilisation_Laser.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/2 - Projetos/BOMBA/BOMBA.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/2 - Projetos/BobinaPlay/BobinaPlay.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/ROS/CommunicationStringIntFloat/CommunicationStringIntFloat.ino",
+		"/Users/abilioazevedo/Documents/ROS/tinyPkgs/src/CMakeLists.txt",
+		"/Users/abilioazevedo/Documents/catkin_ws2/src/CMakeLists.txt",
+		"/Users/abilioazevedo/Documents/catkin_ws2/src/location_monitor/src/CMakeLists.txt",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD10_Meu/5-InteratorConteneur.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD10_Meu/1-Iterateur",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD10_Meu/4-dictionnaire",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD10_Meu/3-Table associative",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD10_Meu/2-Liste",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD10_Meu/td10.pdf",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD9_Meu/salarie.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD9_Meu/personne.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD8_Meu/complexe.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD8_Meu/complexe.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD8_Meu/tableau.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD8_Meu/3-testTableau.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD8_Meu/4-Application.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD9_Meu/personne.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD5_Meu/1-newAlocacao.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD3_Meu/testcomplexe.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD3_Meu/complexe.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD3_Meu/complexe.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/MiniProject/MeuMiniProject1/ProjetS7-Gieudes-Azevedo/ProjetS7/Matrice.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/MiniProject/MeuMiniProject1/ProjetS7-Gieudes-Azevedo/ExtensionsProjetS7/extensions.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/MiniProject/MeuMiniProject1/TripletsGeneric.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/MiniProject/MeuMiniProject1/testMatriceCreuse",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/MiniProject/MeuMiniProject1/PileChainee.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/MiniProject/MeuMiniProject1/PileChainee.hpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/MiniProject/MeuMiniProject1/PileChainee",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/MiniProject/MeuMiniProject1/noeud.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD7_Meu/carre.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD2_Meu/2-string concaténation.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD2_Meu/1-string.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD1_Meu/5-echanger.cpp",
+		"/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Praticas/TD1_Meu/4-rectangle.cpp"
+	],
+	"find":
+	{
+		"height": 28.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"rotateDroit",
+			"rotateDroite",
+			"rotateDroit",
+			"servoPitch2",
+			"readAng",
+			"angulo",
+			"channe",
+			"Serial2",
+			"Serial3",
+			"timer",
+			"mpu",
+			"goleft",
+			"setup",
+			"yaw",
+			"leitura",
+			"mpuInterrupt = false;",
+			"  mpuInterrupt = false;\n  mpuIntStatus = mpu.getIntStatus();",
+			"leitura(",
+			"mpuInterrupt",
+			"11",
+			"fifo",
+			"leitura",
+			"stop1",
+			"leitura(",
+			"leitura()",
+			"mpu",
+			"mpuInterrupt",
+			"leitura(",
+			"leitura()",
+			"leitura",
+			"2",
+			"INTERRUPT_PIN",
+			"interrupt",
+			"points",
+			"res",
+			"my_sql",
+			"cd media/psf/Google\\ Drive/Projet\\ Programation/Ensemble3",
+			"executeUpdate",
+			"p",
+			"my_sql",
+			"my_sql()",
+			"pGraphView",
+			"gameMoved",
+			"gameMove",
+			"MoveGame",
+			"{",
+			"score",
+			"sc",
+			"p",
+			"score",
+			"restart",
+			"connection",
+			"info",
+			"timeout",
+			"update",
+			"timer_start",
+			"            \n",
+			"}\n",
+			"bImg",
+			"permute",
+			"Laser",
+			"mpuYaw",
+			"Serial",
+			"ser",
+			"Laser",
+			"j",
+			"servo2.write",
+			"pos_change",
+			"AngModServoPitch",
+			"servo2.write",
+			"servo2.write(",
+			"servo3.write",
+			"servo2.write",
+			"pos_rec",
+			"frame",
+			"mpuInterrupt",
+			"mpu",
+			"void setup",
+			"setup",
+			"dmpReady",
+			"void leitura(void)",
+			"void leitura()",
+			"leitura()",
+			"hide()",
+			"convertirEnFahrenheit",
+			"update",
+			"Gtk::FILL",
+			"bClose.signal_clicked()",
+			"image",
+			"nb",
+			"image",
+			"−",
+			"list",
+			"roll",
+			"INFO",
+			"listener",
+			"str_detect",
+			"ros",
+			"talker",
+			"Angini3",
+			"Angini2",
+			"digito1",
+			"Serial",
+			"cb",
+			"cb(m",
+			"cb(M",
+			"str_detect",
+			"format",
+			"EIGENSPARSE",
+			"node",
+			"depen",
+			"find_package",
+			"PileChainee",
+			"data",
+			"−>",
+			"->",
+			"s",
+			"<<",
+			"infosmatcreuse",
+			"affichertriplets",
+			"detruire",
+			"<T>",
+			"noeud",
+			"sp",
+			"noeud",
+			"−>",
+			"−",
+			"-"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "ROVER-Motors/_5_MotionWithGyro/_5_MotionWithGyro.ino",
+					"settings":
+					{
+						"buffer_size": 16065,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7570,
+								9075
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 6404.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "ROVER-Motors/RoverAngleMove/RoverAngleMove.ino",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1852.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "ROVER-Head/_11b_Servo_Serial_Follow_Simplier_Laser/_11b_Servo_Serial_Follow_Simplier_Laser.ino",
+					"settings":
+					{
+						"buffer_size": 17064,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7655,
+								7655
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2745.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/abilioazevedo/Dropbox/Public/Escola/Superior/Brafitec/7_Polytech_Eletronique/Semestre1/Informatique/Programmation objet - C++ - Granet/Projet/Projet final/my_sql.hpp",
+					"settings":
+					{
+						"buffer_size": 8957,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1042,
+								1032
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 345.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/abilioazevedo/Dropbox/Developer/ROS/Python-faceTracking/5-SERIAL_MOTORS_ROVER_video_facial_landmarks.py",
+					"settings":
+					{
+						"buffer_size": 6420,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6124,
+								6124
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1924.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/abilioazevedo/Dropbox/Developer/ROS/Python-faceTracking/5b-SERIAL_MOTORS.py",
+					"settings":
+					{
+						"buffer_size": 1085,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 225.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 183.0,
+	"status_bar_visible": true
+}

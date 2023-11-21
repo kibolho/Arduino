@@ -1,0 +1,494 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"bt",
+				"btn1"
+			],
+			[
+				"int",
+				"int	Arduino int()"
+			],
+			[
+				"sensor",
+				"Sensor1Data"
+			],
+			[
+				"sen",
+				"sensorArray"
+			],
+			[
+				"con",
+				"concat"
+			],
+			[
+				"fo",
+				"forward"
+			],
+			[
+				"spee",
+				"speed"
+			],
+			[
+				"set",
+				"setInterval"
+			],
+			[
+				"Re",
+				"ReadSensors"
+			],
+			[
+				"btn",
+				"btnJoy"
+			],
+			[
+				"Sen",
+				"Sensor1Data"
+			],
+			[
+				"fl",
+				"flagCounting"
+			],
+			[
+				"i",
+				"i"
+			],
+			[
+				"es",
+				"estadoButtonsChar"
+			],
+			[
+				"y",
+				"yCharMsg"
+			],
+			[
+				"x",
+				"xCharMsg"
+			],
+			[
+				"Bu",
+				"Button2"
+			],
+			[
+				"bu",
+				"Button1"
+			],
+			[
+				"digi",
+				"digitalRead	Arduino digitalRead"
+			],
+			[
+				"j",
+				"PressJoystick"
+			],
+			[
+				"tr",
+				"true"
+			],
+			[
+				"send",
+				"sendData"
+			],
+			[
+				"RF",
+				"RFVCC"
+			],
+			[
+				"Ax",
+				"AxisY"
+			],
+			[
+				"mous",
+				"mouseButton"
+			],
+			[
+				"in",
+				"include"
+			],
+			[
+				"Thread",
+				"ThreadController"
+			],
+			[
+				"deb",
+				"debugSerial"
+			],
+			[
+				"d",
+				"distancia1"
+			],
+			[
+				"dig",
+				"digitalRead	Arduino digitalRead"
+			],
+			[
+				"fa",
+				"fazLeituras"
+			],
+			[
+				"contro",
+				"controlaRobo"
+			],
+			[
+				"LE",
+				"LED1"
+			],
+			[
+				"las",
+				"lastExecuteTimeLED1"
+			],
+			[
+				"LED",
+				"LED2"
+			],
+			[
+				"cit",
+				"city1"
+			],
+			[
+				"ci",
+				"city2"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "RFRecieve/RFRecieve.ino",
+			"settings":
+			{
+				"buffer_size": 2464,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "RFController/untitled",
+			"settings":
+			{
+				"buffer_size": 2060,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "RFController/RFController.ino",
+			"settings":
+			{
+				"buffer_size": 1263,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/C++/C++.sublime-build",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"ss",
+				"Set Syntax: Arduino"
+			],
+			[
+				"",
+				"About"
+			],
+			[
+				"ssa",
+				"Set Syntax: Arduino"
+			],
+			[
+				"ssc",
+				"Set Syntax: C"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"consol",
+				"Set Syntax: R Console"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/RF/RFController/RFController.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/RF/RFController/RFRecieve.ino",
+		"/Users/abilioazevedo/Dropbox/Developer/Arduino/RF/RF_emissor_ultrasom/RF_emissor_ultrasom.ino",
+		"/Users/abilioazevedo/Dropbox/c++.sublime-build",
+		"/Users/abilioazevedo/Desktop/untitled.ino",
+		"/Users/abilioazevedo/Dropbox/unlink.php",
+		"/Users/abilioazevedo/Library/Application Support/Sublime Text 2/Packages/User/Plain text.sublime-settings",
+		"/Users/abilioazevedo/Downloads/sideScroller/main.lua"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"World",
+			"Wordl",
+			"World",
+			"!",
+			"World",
+			"-",
+			"hello world",
+			"omitida>",
+			"omitida",
+			"Abílio Marcos:",
+			"Ana Luiza Contim Rodrigues:",
+			"Abílio",
+			":",
+			":\n",
+			":",
+			"Hahaha",
+			"localhost:8888/wordpress",
+			"wordpress",
+			"abilio.co.nf",
+			"localhost:8888",
+			"localhost:88",
+			"ul,\nol,\ndl,\np,\nblockquote,\ntable,\nform,\npre,\nhr {",
+			"WP_MEMORY_LIMIT",
+			"40M",
+			"define( 'WP_MEMORY_LIMIT', '40M' );",
+			"My Basket:",
+			"add_to_cart_fragments",
+			"header_add_to_cart_fragment",
+			"basket",
+			"Checkout",
+			"define",
+			"Checkout"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"Hahaha"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "RFRecieve/RFRecieve.ino",
+					"settings":
+					{
+						"buffer_size": 2464,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1871,
+								1704
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Arduino-like IDE/Arduino.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 660.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "RFController/untitled",
+					"settings":
+					{
+						"buffer_size": 2060,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2060,
+								2060
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Arduino-like IDE/Arduino.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "RFController/RFController.ino",
+					"settings":
+					{
+						"buffer_size": 1263,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								441,
+								441
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Arduino-like IDE/Arduino.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 84.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.Blink":
+	{
+		"height": 100.0
+	},
+	"output.DecoderIR":
+	{
+		"height": 100.0
+	},
+	"output.Desktop":
+	{
+		"height": 100.0
+	},
+	"output.DigitalReadSerial":
+	{
+		"height": 100.0
+	},
+	"output.RFController":
+	{
+		"height": 100.0
+	},
+	"output.RFRecieve":
+	{
+		"height": 100.0
+	},
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"output.stino_log":
+	{
+		"height": 100.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}

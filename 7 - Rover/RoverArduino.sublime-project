@@ -1,0 +1,20 @@
+{
+	"folders":
+	[
+		{
+			"path": "ROVER-Motors/MainSoftware"
+		},
+		{
+			"path": "ROVER-Motors/md10c"
+		},
+		{
+			"path": "ROVER-Motors/Motion_basic"
+		},
+		{
+			"path": "ROVER-Motors/Mouvement_des_roues"
+		},
+		{
+			"path": "ROVER-Motors/Mouvement_des_servos"
+		}
+	]
+}
